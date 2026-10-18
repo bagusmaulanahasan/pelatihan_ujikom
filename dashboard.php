@@ -35,6 +35,11 @@
         $("#m_dosen").click(function(){
         loadDosen();        
         });
+
+        //menu jadwal
+        $("#jadwal").click(function(){
+        loadJadwal();        
+        });
         
         $("#contentData").on("click", "#addButton", function() {
                 $.ajax({
@@ -164,6 +169,65 @@
                 });
             });
 
+            //simpan data jadwal
+            $("#contentData").on("submit", "#formJadwal", function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'jadwal/jadwal.php?action=save',
+                    type: 'post',
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        alert(data);
+                        loadJadwal();
+                    }
+                });
+            });
+
+         //hapus data jadwal berdasarkan id
+         $("#contentData").on("click", "#deleteJadwal", function() {
+                var id = $(this).attr("value");
+                $.ajax({
+                    url: 'jadwal/jadwal.php?action=delete',
+                    type: 'post',
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        alert(data);
+                        loadJadwal();
+                    }
+                });
+            });
+
+            //Load form edit dengan parameter id jadwal
+            $("#contentData").on("click", "#editJadwal", function() {
+                var id = $(this).attr("value");
+                $.ajax({
+                    url: 'jadwal/edit.php',
+                    type: 'get',
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        $('#contentData').html(data);
+                    }
+                });
+            });
+
+            //edit data jadwal
+            $("#contentData").on("submit", "#formEditJadwal", function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'jadwal/jadwal.php?action=edit',
+                    type: 'post',
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        alert(data);
+                        loadJadwal();
+                    }
+                });
+            });
+
         
 
     });//end ready function
@@ -181,6 +245,16 @@
         function loadDosen() {
             $.ajax({
                 url: 'dosen/list.php',
+                type: 'get',
+                success: function(data) {
+                    $('#contentData').html(data);
+                }
+            });
+        }
+
+        function loadJadwal() {
+            $.ajax({
+                url: 'jadwal/list.php',
                 type: 'get',
                 success: function(data) {
                     $('#contentData').html(data);

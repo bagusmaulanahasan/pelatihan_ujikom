@@ -97,6 +97,62 @@ class db
         return $this->koneksi->error;
     }
 
+    // matkul
+    function get_allMatkul()
+    {
+        $data = $this->koneksi->query("select * from tbl_matkul");
+        return $data;
+    }
+
+    // jadwal
+    function get_allJadwal()
+    {
+        $data = $this->koneksi->query("select jadwal.*, dosen.nama as nama_dosen, matkul.nama as nama_matkul
+                                        from tbl_jadwal as jadwal
+                                        left join tbl_dosen as dosen on jadwal.kd_dosen = dosen.kd_dosen
+                                        left join tbl_matkul as matkul on jadwal.kd_matkul = matkul.kd_matkul
+                                        order by jadwal.id");
+        return $data;
+    }
+
+    function get_JadwalById($id)
+    {
+        $data = $this->koneksi->query("select * from tbl_jadwal where id='$id'");
+        return $data;
+    }
+
+    function add_jadwal($kd_dosen, $kd_matkul, $waktu, $ruang)
+    {
+        try {
+            $data = $this->koneksi->query("insert into tbl_jadwal(kd_dosen,kd_matkul,waktu,ruang) values('$kd_dosen','$kd_matkul','$waktu','$ruang')");
+        } catch (\Exception $e) {
+            return false;
+        }
+        return $data;
+
+    }
+
+    function update_jadwal($id, $kd_dosen, $kd_matkul, $waktu, $ruang)
+    {
+        try {
+            $data = $this->koneksi->query("UPDATE tbl_jadwal SET kd_dosen = '$kd_dosen', kd_matkul = '$kd_matkul', waktu = '$waktu', ruang = '$ruang' WHERE id='$id'");
+        } catch (\Exception $e) {
+            return false;
+        }
+        return $data;
+    }
+
+    function del_jadwal($id)
+    {
+        try {
+            $data = $this->koneksi->query("delete from tbl_jadwal where id='$id'");
+        } catch (\Exception $e) {
+            return false;
+        }
+        return $data;
+
+    }
+
 
 
 }
