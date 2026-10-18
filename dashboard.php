@@ -40,6 +40,11 @@
         $("#jadwal").click(function(){
         loadJadwal();        
         });
+
+        //menu krs
+        $("#krs").click(function(){
+        loadKrs();        
+        });
         
         $("#contentData").on("click", "#addButton", function() {
                 $.ajax({
@@ -228,6 +233,65 @@
                 });
             });
 
+            //simpan data krs
+            $("#contentData").on("submit", "#formKrs", function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'krs/krs.php?action=save',
+                    type: 'post',
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        alert(data);
+                        loadKrs();
+                    }
+                });
+            });
+
+         //hapus data krs berdasarkan id
+         $("#contentData").on("click", "#deleteKrs", function() {
+                var id = $(this).attr("value");
+                $.ajax({
+                    url: 'krs/krs.php?action=delete',
+                    type: 'post',
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        alert(data);
+                        loadKrs();
+                    }
+                });
+            });
+
+            //Load form edit dengan parameter id krs
+            $("#contentData").on("click", "#editKrs", function() {
+                var id = $(this).attr("value");
+                $.ajax({
+                    url: 'krs/edit.php',
+                    type: 'get',
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        $('#contentData').html(data);
+                    }
+                });
+            });
+
+            //edit data krs
+            $("#contentData").on("submit", "#formEditKrs", function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'krs/krs.php?action=edit',
+                    type: 'post',
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        alert(data);
+                        loadKrs();
+                    }
+                });
+            });
+
         
 
     });//end ready function
@@ -255,6 +319,16 @@
         function loadJadwal() {
             $.ajax({
                 url: 'jadwal/list.php',
+                type: 'get',
+                success: function(data) {
+                    $('#contentData').html(data);
+                }
+            });
+        }
+
+        function loadKrs() {
+            $.ajax({
+                url: 'krs/list.php',
                 type: 'get',
                 success: function(data) {
                     $('#contentData').html(data);

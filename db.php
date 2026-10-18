@@ -153,6 +153,74 @@ class db
 
     }
 
+    // semester
+    function get_allSemester()
+    {
+        $data = $this->koneksi->query("select * from tbl_semester order by kd_semester");
+        return $data;
+    }
+
+    // krs
+    function get_allKrs()
+    {
+        $data = $this->koneksi->query("select krs.*, mhs.nama as nama_mhs, semester.semester as nama_semester,
+                                        matkul.nama as nama_matkul, dosen.nama as nama_dosen,
+                                        jadwal.waktu as waktu, jadwal.ruang as ruang
+                                        from tbl_krs as krs
+                                        left join tbl_mahasiswa as mhs on krs.nim = mhs.nim
+                                        left join tbl_semester as semester on krs.kd_semester = semester.kd_semester
+                                        left join tbl_jadwal as jadwal on krs.id_jadwal = jadwal.id
+                                        left join tbl_matkul as matkul on jadwal.kd_matkul = matkul.kd_matkul
+                                        left join tbl_dosen as dosen on jadwal.kd_dosen = dosen.kd_dosen
+                                        order by krs.id");
+        return $data;
+    }
+
+    function get_KrsById($id)
+    {
+        $data = $this->koneksi->query("select * from tbl_krs where id='$id'");
+        return $data;
+    }
+
+    // cek apakah nim sudah ambil jadwal tersebut pada semester tersebut
+    function cek_krs($nim, $id_jadwal, $kd_semester, $id = "")
+    {
+        $data = $this->koneksi->query("select * from tbl_krs where nim='$nim' and id_jadwal='$id_jadwal' and kd_semester='$kd_semester' and id <> '$id'");
+        return $data->num_rows > 0;
+    }
+
+    function add_krs($nim, $id_jadwal, $kd_semester)
+    {
+        try {
+            $data = $this->koneksi->query("insert into tbl_krs(nim,id_jadwal,kd_semester) values('$nim','$id_jadwal','$kd_semester')");
+        } catch (\Exception $e) {
+            return false;
+        }
+        return $data;
+
+    }
+
+    function update_krs($id, $nim, $id_jadwal, $kd_semester)
+    {
+        try {
+            $data = $this->koneksi->query("UPDATE tbl_krs SET nim = '$nim', id_jadwal = '$id_jadwal', kd_semester = '$kd_semester' WHERE id='$id'");
+        } catch (\Exception $e) {
+            return false;
+        }
+        return $data;
+    }
+
+    function del_krs($id)
+    {
+        try {
+            $data = $this->koneksi->query("delete from tbl_krs where id='$id'");
+        } catch (\Exception $e) {
+            return false;
+        }
+        return $data;
+
+    }
+
 
 
 }
