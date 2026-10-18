@@ -97,6 +97,17 @@ class db
         return $this->koneksi->error;
     }
 
+    // ringkasan jumlah data untuk halaman dashboard
+    function get_dashboard()
+    {
+        $data = $this->koneksi->query("select
+                                        (select count(*) from tbl_mahasiswa) as total_mhs,
+                                        (select count(*) from tbl_dosen) as total_dosen,
+                                        (select count(*) from tbl_jadwal) as total_jadwal,
+                                        (select count(*) from tbl_krs) as total_krs");
+        return $data->fetch_array();
+    }
+
     // matkul
     function get_allMatkul()
     {

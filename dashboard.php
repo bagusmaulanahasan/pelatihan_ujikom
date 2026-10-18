@@ -45,6 +45,23 @@
         $("#krs").click(function(){
         loadKrs();        
         });
+
+        //kartu dashboard diklik -> buka menu terkait
+        $("#card_mhs").click(function(){
+        loadMhs();
+        });
+
+        $("#card_dosen").click(function(){
+        loadDosen();
+        });
+
+        $("#card_jadwal").click(function(){
+        loadJadwal();
+        });
+
+        $("#card_krs").click(function(){
+        loadKrs();
+        });
         
         $("#contentData").on("click", "#addButton", function() {
                 $.ajax({
@@ -632,10 +649,79 @@
                 <!-- Begin Page Content -->
                 <div id="contentData">
                 <div class="container-fluid">
+
         <!-- Page Heading -->
-            <div >
-            <h1 class="h3 mb-4 text-gray-800">Welcome </h1>
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
             </div>
+
+            <!-- Ringkasan data per menu -->
+            <?php
+            include "db.php";
+            $db=new db;
+            $ringkasan=$db->get_dashboard();
+            ?>
+
+            <div class="row mt-4">
+
+                <div class="col-xl-3 col-sm-6 mb-4">
+                    <div class="card border-0 shadow h-100" id="card_mhs">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="icon-circle bg-primary mr-3">
+                                <i class="fas fa-user-graduate text-white"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">Mahasiswa</div>
+                                <div class="h4 mb-0 font-weight-bold text-gray-800"><?php echo $ringkasan['total_mhs']; ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 mb-4">
+                    <div class="card border-0 shadow h-100" id="card_dosen">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="icon-circle bg-success mr-3">
+                                <i class="fas fa-chalkboard-teacher text-white"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">Dosen</div>
+                                <div class="h4 mb-0 font-weight-bold text-gray-800"><?php echo $ringkasan['total_dosen']; ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 mb-4">
+                    <div class="card border-0 shadow h-100" id="card_jadwal">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="icon-circle bg-warning mr-3">
+                                <i class="fas fa-calendar-alt text-white"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">Jadwal</div>
+                                <div class="h4 mb-0 font-weight-bold text-gray-800"><?php echo $ringkasan['total_jadwal']; ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 mb-4">
+                    <div class="card border-0 shadow h-100" id="card_krs">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="icon-circle bg-info mr-3">
+                                <i class="fas fa-file-signature text-white"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">KRS</div>
+                                <div class="h4 mb-0 font-weight-bold text-gray-800"><?php echo $ringkasan['total_krs']; ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
                 </div>
                 <!-- /.container-fluid -->
