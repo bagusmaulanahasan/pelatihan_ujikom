@@ -46,6 +46,57 @@ class db
 
     }
 
+    // dosen
+    function get_allDosen()
+    {
+        $data = $this->koneksi->query("select * from tbl_dosen");
+        return $data;
+    }
+
+    function add_dosen($kd_dosen, $nama, $alamat)
+    {
+        try {
+            $data = $this->koneksi->query("insert into tbl_dosen(kd_dosen,nama,alamat) values('$kd_dosen','$nama','$alamat')");
+        } catch (\Exception $e) {
+            return false;
+        }
+        return $data;
+
+    }
+
+    function update_dosen($kd_dosen, $kd_dosen_baru, $nama, $alamat)
+    {
+        try {
+            $data = $this->koneksi->query("UPDATE tbl_dosen SET kd_dosen = '$kd_dosen_baru', nama = '$nama', alamat = '$alamat' WHERE kd_dosen='$kd_dosen'");
+        } catch (\Exception $e) {
+            return false;
+        }
+        return $data;
+    }
+
+    function get_DosenByKd($kd_dosen)
+    {
+        $data = $this->koneksi->query("select * from tbl_dosen where kd_dosen='$kd_dosen'");
+        return $data;
+    }
+
+    function del_dosen($kd_dosen)
+    {
+        try {
+            $data = $this->koneksi->query("delete from tbl_dosen where kd_dosen='$kd_dosen'");
+        } catch (\Exception $e) {
+            return false;
+        }
+        return $data;
+
+    }
+
+    // pesan error mysql terakhir, untuk ditampilkan ke user
+    function get_error()
+    {
+        return $this->koneksi->error;
+    }
+
 
 
 }

@@ -30,6 +30,11 @@
         $("#m_mahasiswa").click(function(){
         loadMhs();        
         });
+
+        //menu dosen
+        $("#m_dosen").click(function(){
+        loadDosen();        
+        });
         
         $("#contentData").on("click", "#addButton", function() {
                 $.ajax({
@@ -100,6 +105,65 @@
                 });
             });
 
+            //simpan data dosen
+            $("#contentData").on("submit", "#formDosen", function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'dosen/dosen.php?action=save',
+                    type: 'post',
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        alert(data);
+                        loadDosen();
+                    }
+                });
+            });
+
+         //hapus data dosen berdasarkan kode dosen
+         $("#contentData").on("click", "#deleteDosen", function() {
+                var kd_dosen = $(this).attr("value");
+                $.ajax({
+                    url: 'dosen/dosen.php?action=delete',
+                    type: 'post',
+                    data: {
+                        kd_dosen: kd_dosen
+                    },
+                    success: function(data) {
+                        alert(data);
+                        loadDosen();
+                    }
+                });
+            });
+
+            //Load form edit dengan parameter kode dosen
+            $("#contentData").on("click", "#editDosen", function() {
+                var kd_dosen = $(this).attr("value");
+                $.ajax({
+                    url: 'dosen/edit.php',
+                    type: 'get',
+                    data: {
+                        kd_dosen: kd_dosen
+                    },
+                    success: function(data) {
+                        $('#contentData').html(data);
+                    }
+                });
+            });
+
+            //edit data dosen
+            $("#contentData").on("submit", "#formEditDosen", function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'dosen/dosen.php?action=edit',
+                    type: 'post',
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        alert(data);
+                        loadDosen();
+                    }
+                });
+            });
+
         
 
     });//end ready function
@@ -107,6 +171,16 @@
     function loadMhs() {
             $.ajax({
                 url: 'mahasiswa/list.php',
+                type: 'get',
+                success: function(data) {
+                    $('#contentData').html(data);
+                }
+            });
+        }
+
+        function loadDosen() {
+            $.ajax({
+                url: 'dosen/list.php',
                 type: 'get',
                 success: function(data) {
                     $('#contentData').html(data);
