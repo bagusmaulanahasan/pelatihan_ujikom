@@ -64,10 +64,10 @@ class db
 
     }
 
-    function update_dosen($kd_dosen, $kd_dosen_baru, $nama, $alamat)
+    function update_dosen($kd_dosen, $nama, $alamat)
     {
         try {
-            $data = $this->koneksi->query("UPDATE tbl_dosen SET kd_dosen = '$kd_dosen_baru', nama = '$nama', alamat = '$alamat' WHERE kd_dosen='$kd_dosen'");
+            $data = $this->koneksi->query("UPDATE tbl_dosen SET nama = '$nama', alamat = '$alamat' WHERE kd_dosen='$kd_dosen'");
         } catch (\Exception $e) {
             return false;
         }

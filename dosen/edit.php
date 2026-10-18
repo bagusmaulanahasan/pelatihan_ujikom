@@ -25,13 +25,8 @@
                             $result=$dosen->fetch_array();
                             ?>
                             <form method="POST" id="formEditDosen">
-                                <input type="hidden" name="kd_dosen_lama" value="<?php echo $result['kd_dosen']; ?>">
+                                <input type="hidden" name="kd_dosen" value="<?php echo $result['kd_dosen']; ?>">
 
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Kode Dosen</label>
-                                    <input type="number" class="form-control" name="kd_dosen" value="<?php echo $result['kd_dosen']; ?>">
-
-                                </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nama</label>
                                     <input type="text" class="form-control" name="nama" value="<?php echo $result['nama']; ?>">

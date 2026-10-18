@@ -24,12 +24,11 @@ switch ($_GET['action'])
 
     case 'edit':
 
-        $kd_dosen_lama = $_POST['kd_dosen_lama'];
         $kd_dosen = $_POST['kd_dosen'];
         $nama = $_POST['nama'];
         $alamat = $_POST['alamat'];
 
-        $query = $db->update_dosen($kd_dosen_lama,$kd_dosen,$nama,$alamat);
+        $query = $db->update_dosen($kd_dosen,$nama,$alamat);
 
         if ($query)
         {
