@@ -5,14 +5,18 @@ class db
     private $koneksi;
     function __construct()
     {
-        $this->koneksi = $koneksi = new mysqli("localhost", "root", "0320", "db_latihan");
-
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+        $this->koneksi = new mysqli("localhost", "root", "0320", "db_latihan");
     }
+    
     function get_user($username, $password)
     {
-        $data = $this->koneksi->query("select * from tbl_user where username='$username' and password='$password'");
-        return $data;
+        $stmt = $this->koneksi->prepare("select * from tbl_user where username = ? and password = ?");
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
+        return $stmt->get_result();
     }
+    
     // mahasiswa
     function get_allMhs()
     {
@@ -22,28 +26,34 @@ class db
 
     function add_mhs($nim, $nama, $alamat)
     {
-        $this->koneksi->query("insert into tbl_mahasiswa(nim,nama,alamat) values('$nim','$nama','$alamat')");
+        $stmt = $this->koneksi->prepare("insert into tbl_mahasiswa(nim,nama,alamat) values(?, ?, ?)");
+        $stmt->bind_param("sss", $nim, $nama, $alamat);
+        $stmt->execute();
         return true;
-
     }
 
     function update_mhs($nim, $nama, $alamat)
     {
-        $this->koneksi->query("UPDATE tbl_mahasiswa SET nama = '$nama', alamat = '$alamat' WHERE nim='$nim'");
+        $stmt = $this->koneksi->prepare("UPDATE tbl_mahasiswa SET nama = ?, alamat = ? WHERE nim = ?");
+        $stmt->bind_param("sss", $nama, $alamat, $nim);
+        $stmt->execute();
         return true;
     }
 
     function get_MhdByNim($nim)
     {
-        $data = $this->koneksi->query("select * from tbl_mahasiswa where nim='$nim'");
-        return $data;
+        $stmt = $this->koneksi->prepare("select * from tbl_mahasiswa where nim = ?");
+        $stmt->bind_param("s", $nim);
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
     function del_mhs($nim)
     {
-        $this->koneksi->query("delete from tbl_mahasiswa where nim='$nim'");
+        $stmt = $this->koneksi->prepare("delete from tbl_mahasiswa where nim = ?");
+        $stmt->bind_param("s", $nim);
+        $stmt->execute();
         return true;
-
     }
 
     // dosen
@@ -56,18 +66,21 @@ class db
     function add_dosen($kd_dosen, $nama, $alamat)
     {
         try {
-            $data = $this->koneksi->query("insert into tbl_dosen(kd_dosen,nama,alamat) values('$kd_dosen','$nama','$alamat')");
+            $stmt = $this->koneksi->prepare("insert into tbl_dosen(kd_dosen,nama,alamat) values(?, ?, ?)");
+            $stmt->bind_param("sss", $kd_dosen, $nama, $alamat);
+            $data = $stmt->execute();
         } catch (\Exception $e) {
             return false;
         }
         return $data;
-
     }
 
     function update_dosen($kd_dosen, $nama, $alamat)
     {
         try {
-            $data = $this->koneksi->query("UPDATE tbl_dosen SET nama = '$nama', alamat = '$alamat' WHERE kd_dosen='$kd_dosen'");
+            $stmt = $this->koneksi->prepare("UPDATE tbl_dosen SET nama = ?, alamat = ? WHERE kd_dosen = ?");
+            $stmt->bind_param("sss", $nama, $alamat, $kd_dosen);
+            $data = $stmt->execute();
         } catch (\Exception $e) {
             return false;
         }
@@ -76,19 +89,22 @@ class db
 
     function get_DosenByKd($kd_dosen)
     {
-        $data = $this->koneksi->query("select * from tbl_dosen where kd_dosen='$kd_dosen'");
-        return $data;
+        $stmt = $this->koneksi->prepare("select * from tbl_dosen where kd_dosen = ?");
+        $stmt->bind_param("s", $kd_dosen);
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
     function del_dosen($kd_dosen)
     {
         try {
-            $data = $this->koneksi->query("delete from tbl_dosen where kd_dosen='$kd_dosen'");
+            $stmt = $this->koneksi->prepare("delete from tbl_dosen where kd_dosen = ?");
+            $stmt->bind_param("s", $kd_dosen);
+            $data = $stmt->execute();
         } catch (\Exception $e) {
             return false;
         }
         return $data;
-
     }
 
     // pesan error mysql terakhir, untuk ditampilkan ke user
@@ -128,25 +144,30 @@ class db
 
     function get_JadwalById($id)
     {
-        $data = $this->koneksi->query("select * from tbl_jadwal where id='$id'");
-        return $data;
+        $stmt = $this->koneksi->prepare("select * from tbl_jadwal where id = ?");
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
     function add_jadwal($kd_dosen, $kd_matkul, $waktu, $ruang)
     {
         try {
-            $data = $this->koneksi->query("insert into tbl_jadwal(kd_dosen,kd_matkul,waktu,ruang) values('$kd_dosen','$kd_matkul','$waktu','$ruang')");
+            $stmt = $this->koneksi->prepare("insert into tbl_jadwal(kd_dosen,kd_matkul,waktu,ruang) values(?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $kd_dosen, $kd_matkul, $waktu, $ruang);
+            $data = $stmt->execute();
         } catch (\Exception $e) {
             return false;
         }
         return $data;
-
     }
 
     function update_jadwal($id, $kd_dosen, $kd_matkul, $waktu, $ruang)
     {
         try {
-            $data = $this->koneksi->query("UPDATE tbl_jadwal SET kd_dosen = '$kd_dosen', kd_matkul = '$kd_matkul', waktu = '$waktu', ruang = '$ruang' WHERE id='$id'");
+            $stmt = $this->koneksi->prepare("UPDATE tbl_jadwal SET kd_dosen = ?, kd_matkul = ?, waktu = ?, ruang = ? WHERE id = ?");
+            $stmt->bind_param("sssss", $kd_dosen, $kd_matkul, $waktu, $ruang, $id);
+            $data = $stmt->execute();
         } catch (\Exception $e) {
             return false;
         }
@@ -156,12 +177,13 @@ class db
     function del_jadwal($id)
     {
         try {
-            $data = $this->koneksi->query("delete from tbl_jadwal where id='$id'");
+            $stmt = $this->koneksi->prepare("delete from tbl_jadwal where id = ?");
+            $stmt->bind_param("s", $id);
+            $data = $stmt->execute();
         } catch (\Exception $e) {
             return false;
         }
         return $data;
-
     }
 
     // semester
@@ -189,32 +211,40 @@ class db
 
     function get_KrsById($id)
     {
-        $data = $this->koneksi->query("select * from tbl_krs where id='$id'");
-        return $data;
+        $stmt = $this->koneksi->prepare("select * from tbl_krs where id = ?");
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
     // cek apakah nim sudah ambil jadwal tersebut pada semester tersebut
     function cek_krs($nim, $id_jadwal, $kd_semester, $id = "")
     {
-        $data = $this->koneksi->query("select * from tbl_krs where nim='$nim' and id_jadwal='$id_jadwal' and kd_semester='$kd_semester' and id <> '$id'");
+        $stmt = $this->koneksi->prepare("select * from tbl_krs where nim = ? and id_jadwal = ? and kd_semester = ? and id <> ?");
+        $stmt->bind_param("ssss", $nim, $id_jadwal, $kd_semester, $id);
+        $stmt->execute();
+        $data = $stmt->get_result();
         return $data->num_rows > 0;
     }
 
     function add_krs($nim, $id_jadwal, $kd_semester)
     {
         try {
-            $data = $this->koneksi->query("insert into tbl_krs(nim,id_jadwal,kd_semester) values('$nim','$id_jadwal','$kd_semester')");
+            $stmt = $this->koneksi->prepare("insert into tbl_krs(nim,id_jadwal,kd_semester) values(?, ?, ?)");
+            $stmt->bind_param("sss", $nim, $id_jadwal, $kd_semester);
+            $data = $stmt->execute();
         } catch (\Exception $e) {
             return false;
         }
         return $data;
-
     }
 
     function update_krs($id, $nim, $id_jadwal, $kd_semester)
     {
         try {
-            $data = $this->koneksi->query("UPDATE tbl_krs SET nim = '$nim', id_jadwal = '$id_jadwal', kd_semester = '$kd_semester' WHERE id='$id'");
+            $stmt = $this->koneksi->prepare("UPDATE tbl_krs SET nim = ?, id_jadwal = ?, kd_semester = ? WHERE id = ?");
+            $stmt->bind_param("ssss", $nim, $id_jadwal, $kd_semester, $id);
+            $data = $stmt->execute();
         } catch (\Exception $e) {
             return false;
         }
@@ -224,16 +254,14 @@ class db
     function del_krs($id)
     {
         try {
-            $data = $this->koneksi->query("delete from tbl_krs where id='$id'");
+            $stmt = $this->koneksi->prepare("delete from tbl_krs where id = ?");
+            $stmt->bind_param("s", $id);
+            $data = $stmt->execute();
         } catch (\Exception $e) {
             return false;
         }
         return $data;
-
     }
-
-
-
 }
 
 ?>
