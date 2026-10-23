@@ -420,47 +420,48 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     <span>Dashboard</span></a>
             </li>
 
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.php">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Menu Utama
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Mahasiswa -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Master</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Master Data</h6>
-                        <a class="collapse-item" id="m_mahasiswa">Mahasiwa</a>
-                        <a class="collapse-item" id="m_dosen">Dosen</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="#" id="m_mahasiswa">
+                    <i class="fas fa-fw fa-user-graduate"></i>
+                    <span>Mahasiswa</span></a>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
+            <!-- Nav Item - Dosen -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Transaksi</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Data Transaksi:</h6>
-                        <a class="collapse-item" id="jadwal">Jadwal</a>
-                        <a class="collapse-item" id="krs">KRS</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="#" id="m_dosen">
+                    <i class="fas fa-fw fa-chalkboard-teacher"></i>
+                    <span>Dosen</span></a>
             </li>
 
+            <!-- Nav Item - Jadwal -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="jadwal">
+                    <i class="fas fa-fw fa-calendar-alt"></i>
+                    <span>Jadwal</span></a>
+            </li>
+
+            <!-- Nav Item - KRS -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="krs">
+                    <i class="fas fa-fw fa-file-signature"></i>
+                    <span>KRS</span></a>
+            </li>
            
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
