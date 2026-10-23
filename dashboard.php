@@ -404,10 +404,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">APLIKASI</div>
             </a>
 
             <!-- Divider -->
@@ -477,6 +474,11 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
+
+                    <!-- Topbar Text -->
+                    <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <span class="text-gray-800 font-weight-bold">Selamat datang <?php echo $_SESSION['username']; ?></span>
+                    </div>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
