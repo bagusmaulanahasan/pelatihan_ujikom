@@ -77,11 +77,15 @@
                 </div>
 
                  <!-- Page level plugins -->
-    <script src="asset/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="asset/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="asset/js/demo/datatables-demo.js"></script>
+    <script>
+        $(document).ready(function() {
+          $('#dataTable').DataTable();
+        });
+    </script>
     <script>
         $(document).ready(function(){  
 
