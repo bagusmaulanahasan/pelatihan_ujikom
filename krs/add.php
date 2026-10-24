@@ -68,6 +68,7 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary" id="simpanKrs">Simpan</button>
+                                 <button type="button" class="btn btn-secondary" onclick="loadKrs()">Batal</button>
                                 </form>
 
                             </div>
