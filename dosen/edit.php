@@ -38,7 +38,8 @@
 
                                 </div>
 
-                                <button type="submit" class="btn btn-primary" >Simpan</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                 <button type="button" class="btn btn-secondary" onclick="loadDosen()">Batal</button>
                                 </form>
 
                             </div>
