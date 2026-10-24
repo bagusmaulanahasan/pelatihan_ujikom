@@ -9,6 +9,14 @@ class db
         $this->koneksi = new mysqli("localhost", "root", "0320", "db_latihan");
     }
     
+    function get_user($username, $password)
+    {
+        $stmt = $this->koneksi->prepare("select * from tbl_user where username = ? and password = ?");
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
     function get_user_by_username($username)
     {
         $stmt = $this->koneksi->prepare("select * from tbl_user where username = ?");
