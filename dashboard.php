@@ -16,7 +16,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>web ujikom</title>
 
     <!-- Custom fonts for this template -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -25,96 +25,98 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
         rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.4/css/sb-admin-2.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.4/css/sb-admin-2.min.css">
 
     <!-- Custom styles for this page -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
-    $(document).ready(function(){ //ready function
+        $(document).ready(function () { //ready function
 
-        //menu mahasiswa
-        $("#m_mahasiswa").click(function(){
-        loadMhs();        
-        });
-
-        //menu dosen
-        $("#m_dosen").click(function(){
-        loadDosen();        
-        });
-
-        //menu jadwal
-        $("#jadwal").click(function(){
-        loadJadwal();        
-        });
-
-        //menu krs
-        $("#krs").click(function(){
-        loadKrs();        
-        });
-
-        //kartu dashboard diklik -> buka menu terkait
-        $("#card_mhs").click(function(){
-        loadMhs();
-        });
-
-        $("#card_dosen").click(function(){
-        loadDosen();
-        });
-
-        $("#card_jadwal").click(function(){
-        loadJadwal();
-        });
-
-        $("#card_krs").click(function(){
-        loadKrs();
-        });
-
-        //menu profile
-        $("#content").on("click", "#profile_menu", function(){
-            loadProfile();
-        });
-
-        //update profile
-        $("#contentData").on("submit", "#formProfile", function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: 'profile.php?action=update',
-                type: 'post',
-                data: $(this).serialize(),
-                success: function(data) {
-                    alert(data);
-                    loadProfile();
-                }
+            //menu mahasiswa
+            $("#m_mahasiswa").click(function () {
+                loadMhs();
             });
-        });
-        
-        $("#contentData").on("click", "#addButton", function() {
+
+            //menu dosen
+            $("#m_dosen").click(function () {
+                loadDosen();
+            });
+
+            //menu jadwal
+            $("#jadwal").click(function () {
+                loadJadwal();
+            });
+
+            //menu krs
+            $("#krs").click(function () {
+                loadKrs();
+            });
+
+            //kartu dashboard diklik -> buka menu terkait
+            $("#card_mhs").click(function () {
+                loadMhs();
+            });
+
+            $("#card_dosen").click(function () {
+                loadDosen();
+            });
+
+            $("#card_jadwal").click(function () {
+                loadJadwal();
+            });
+
+            $("#card_krs").click(function () {
+                loadKrs();
+            });
+
+            //menu profile
+            $("#content").on("click", "#profile_menu", function () {
+                loadProfile();
+            });
+
+            //update profile
+            $("#contentData").on("submit", "#formProfile", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'profile.php?action=update',
+                    type: 'post',
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        alert(data);
+                        loadProfile();
+                    }
+                });
+            });
+
+            $("#contentData").on("click", "#addButton", function () {
                 $.ajax({
                     url: 'form-add.php',
                     type: 'get',
-                    success: function(data) {
+                    success: function (data) {
                         $('#contentData').html(data);
                     }
                 });
             });
 
-        //simpan data mahasiswa
-        $("#contentData").on("submit", "#formMhs", function(e) {
+            //simpan data mahasiswa
+            $("#contentData").on("submit", "#formMhs", function (e) {
                 e.preventDefault();
                 $.ajax({
                     url: 'mahasiswa/mahasiswa.php?action=save',
                     type: 'post',
                     data: $(this).serialize(),
-                    success: function(data) {
+                    success: function (data) {
                         alert(data);
-                        loadMhs(); 
+                        loadMhs();
                     }
                 });
             });
 
-         //hapus data mahasiswa berdasarkan nim
-         $("#contentData").on("click", "#deleteMhs", function() {
+            //hapus data mahasiswa berdasarkan nim
+            $("#contentData").on("click", "#deleteMhs", function () {
                 var nim = $(this).attr("value");
                 $.ajax({
                     url: 'mahasiswa/mahasiswa.php?action=delete',
@@ -122,7 +124,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     data: {
                         nim: nim
                     },
-                    success: function(data) {
+                    success: function (data) {
                         alert(data);
                         loadMhs();
                     }
@@ -130,7 +132,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
             });
 
             //Load form edit dengan parameter IdMhsw
-            $("#contentData").on("click", "#editMhs", function() {
+            $("#contentData").on("click", "#editMhs", function () {
                 var nim = $(this).attr("value");
                 $.ajax({
                     url: 'mahasiswa/edit.php',
@@ -138,20 +140,20 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     data: {
                         nim: nim
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $('#contentData').html(data);
                     }
                 });
             });
 
             //edit data mahasiswa
-            $("#contentData").on("submit", "#formEditMhs", function(e) {
+            $("#contentData").on("submit", "#formEditMhs", function (e) {
                 e.preventDefault();
                 $.ajax({
                     url: 'mahasiswa/mahasiswa.php?action=edit',
                     type: 'post',
                     data: $(this).serialize(),
-                    success: function(data) {  
+                    success: function (data) {
                         alert(data);
                         loadMhs();
                     }
@@ -159,21 +161,21 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
             });
 
             //simpan data dosen
-            $("#contentData").on("submit", "#formDosen", function(e) {
+            $("#contentData").on("submit", "#formDosen", function (e) {
                 e.preventDefault();
                 $.ajax({
                     url: 'dosen/dosen.php?action=save',
                     type: 'post',
                     data: $(this).serialize(),
-                    success: function(data) {
+                    success: function (data) {
                         alert(data);
                         loadDosen();
                     }
                 });
             });
 
-         //hapus data dosen berdasarkan kode dosen
-         $("#contentData").on("click", "#deleteDosen", function() {
+            //hapus data dosen berdasarkan kode dosen
+            $("#contentData").on("click", "#deleteDosen", function () {
                 var kd_dosen = $(this).attr("value");
                 $.ajax({
                     url: 'dosen/dosen.php?action=delete',
@@ -181,7 +183,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     data: {
                         kd_dosen: kd_dosen
                     },
-                    success: function(data) {
+                    success: function (data) {
                         alert(data);
                         loadDosen();
                     }
@@ -189,7 +191,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
             });
 
             //Load form edit dengan parameter kode dosen
-            $("#contentData").on("click", "#editDosen", function() {
+            $("#contentData").on("click", "#editDosen", function () {
                 var kd_dosen = $(this).attr("value");
                 $.ajax({
                     url: 'dosen/edit.php',
@@ -197,20 +199,20 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     data: {
                         kd_dosen: kd_dosen
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $('#contentData').html(data);
                     }
                 });
             });
 
             //edit data dosen
-            $("#contentData").on("submit", "#formEditDosen", function(e) {
+            $("#contentData").on("submit", "#formEditDosen", function (e) {
                 e.preventDefault();
                 $.ajax({
                     url: 'dosen/dosen.php?action=edit',
                     type: 'post',
                     data: $(this).serialize(),
-                    success: function(data) {
+                    success: function (data) {
                         alert(data);
                         loadDosen();
                     }
@@ -218,21 +220,21 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
             });
 
             //simpan data jadwal
-            $("#contentData").on("submit", "#formJadwal", function(e) {
+            $("#contentData").on("submit", "#formJadwal", function (e) {
                 e.preventDefault();
                 $.ajax({
                     url: 'jadwal/jadwal.php?action=save',
                     type: 'post',
                     data: $(this).serialize(),
-                    success: function(data) {
+                    success: function (data) {
                         alert(data);
                         loadJadwal();
                     }
                 });
             });
 
-         //hapus data jadwal berdasarkan id
-         $("#contentData").on("click", "#deleteJadwal", function() {
+            //hapus data jadwal berdasarkan id
+            $("#contentData").on("click", "#deleteJadwal", function () {
                 var id = $(this).attr("value");
                 $.ajax({
                     url: 'jadwal/jadwal.php?action=delete',
@@ -240,7 +242,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     data: {
                         id: id
                     },
-                    success: function(data) {
+                    success: function (data) {
                         alert(data);
                         loadJadwal();
                     }
@@ -248,7 +250,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
             });
 
             //Load form edit dengan parameter id jadwal
-            $("#contentData").on("click", "#editJadwal", function() {
+            $("#contentData").on("click", "#editJadwal", function () {
                 var id = $(this).attr("value");
                 $.ajax({
                     url: 'jadwal/edit.php',
@@ -256,20 +258,20 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     data: {
                         id: id
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $('#contentData').html(data);
                     }
                 });
             });
 
             //edit data jadwal
-            $("#contentData").on("submit", "#formEditJadwal", function(e) {
+            $("#contentData").on("submit", "#formEditJadwal", function (e) {
                 e.preventDefault();
                 $.ajax({
                     url: 'jadwal/jadwal.php?action=edit',
                     type: 'post',
                     data: $(this).serialize(),
-                    success: function(data) {
+                    success: function (data) {
                         alert(data);
                         loadJadwal();
                     }
@@ -277,21 +279,21 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
             });
 
             //simpan data krs
-            $("#contentData").on("submit", "#formKrs", function(e) {
+            $("#contentData").on("submit", "#formKrs", function (e) {
                 e.preventDefault();
                 $.ajax({
                     url: 'krs/krs.php?action=save',
                     type: 'post',
                     data: $(this).serialize(),
-                    success: function(data) {
+                    success: function (data) {
                         alert(data);
                         loadKrs();
                     }
                 });
             });
 
-         //hapus data krs berdasarkan id
-         $("#contentData").on("click", "#deleteKrs", function() {
+            //hapus data krs berdasarkan id
+            $("#contentData").on("click", "#deleteKrs", function () {
                 var id = $(this).attr("value");
                 $.ajax({
                     url: 'krs/krs.php?action=delete',
@@ -299,7 +301,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     data: {
                         id: id
                     },
-                    success: function(data) {
+                    success: function (data) {
                         alert(data);
                         loadKrs();
                     }
@@ -307,7 +309,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
             });
 
             //Load form edit dengan parameter id krs
-            $("#contentData").on("click", "#editKrs", function() {
+            $("#contentData").on("click", "#editKrs", function () {
                 var id = $(this).attr("value");
                 $.ajax({
                     url: 'krs/edit.php',
@@ -315,35 +317,35 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     data: {
                         id: id
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $('#contentData').html(data);
                     }
                 });
             });
 
             //edit data krs
-            $("#contentData").on("submit", "#formEditKrs", function(e) {
+            $("#contentData").on("submit", "#formEditKrs", function (e) {
                 e.preventDefault();
                 $.ajax({
                     url: 'krs/krs.php?action=edit',
                     type: 'post',
                     data: $(this).serialize(),
-                    success: function(data) {
+                    success: function (data) {
                         alert(data);
                         loadKrs();
                     }
                 });
             });
 
-        
 
-    });//end ready function
 
-    function loadMhs() {
+        });//end ready function
+
+        function loadMhs() {
             $.ajax({
                 url: 'mahasiswa/list.php',
                 type: 'get',
-                success: function(data) {
+                success: function (data) {
                     $('#contentData').html(data);
                 }
             });
@@ -353,7 +355,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
             $.ajax({
                 url: 'dosen/list.php',
                 type: 'get',
-                success: function(data) {
+                success: function (data) {
                     $('#contentData').html(data);
                 }
             });
@@ -363,7 +365,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
             $.ajax({
                 url: 'jadwal/list.php',
                 type: 'get',
-                success: function(data) {
+                success: function (data) {
                     $('#contentData').html(data);
                 }
             });
@@ -373,7 +375,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
             $.ajax({
                 url: 'krs/list.php',
                 type: 'get',
-                success: function(data) {
+                success: function (data) {
                     $('#contentData').html(data);
                 }
             });
@@ -383,14 +385,14 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
             $.ajax({
                 url: 'profile.php?action=view',
                 type: 'get',
-                success: function(data) {
+                success: function (data) {
                     $('#contentData').html(data);
                 }
             });
         }
 
-      
-</script>
+
+    </script>
 
 </head>
 
@@ -452,7 +454,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     <i class="fas fa-fw fa-file-signature"></i>
                     <span>KRS</span></a>
             </li>
-           
+
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -477,7 +479,8 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
 
                     <!-- Topbar Text -->
                     <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <span class="text-gray-800 font-weight-bold">Selamat datang <?php echo $_SESSION['username']; ?></span>
+                        <span class="text-gray-800 font-weight-bold">Selamat datang
+                            <?php echo $_SESSION['username']; ?></span>
                     </div>
 
                     <!-- Topbar Navbar -->
@@ -489,7 +492,8 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
                                 <i class="fas fa-user-circle fa-2x text-gray-400"></i>
                             </a>
                             <!-- Dropdown - User Information -->
@@ -514,81 +518,93 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
 
                 <!-- Begin Page Content -->
                 <div id="contentData">
-                <div class="container-fluid">
+                    <div class="container-fluid">
 
-        <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between">
-                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            </div>
-
-            <!-- Ringkasan data per menu -->
-            <?php
-            include "db.php";
-            $db=new db;
-            $ringkasan=$db->get_dashboard();
-            ?>
-
-            <div class="row mt-4">
-
-                <div class="col-xl-3 col-sm-6 mb-4">
-                    <div class="card border-0 shadow h-100" id="card_mhs">
-                        <div class="card-body d-flex align-items-center">
-                            <div class="icon-circle bg-primary mr-3">
-                                <i class="fas fa-user-graduate text-white"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">Mahasiswa</div>
-                                <div class="h4 mb-0 font-weight-bold text-gray-800"><?php echo $ringkasan['total_mhs']; ?></div>
-                            </div>
+                        <!-- Page Heading -->
+                        <div class="d-sm-flex align-items-center justify-content-between">
+                            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                         </div>
-                    </div>
-                </div>
 
-                <div class="col-xl-3 col-sm-6 mb-4">
-                    <div class="card border-0 shadow h-100" id="card_dosen">
-                        <div class="card-body d-flex align-items-center">
-                            <div class="icon-circle bg-success mr-3">
-                                <i class="fas fa-chalkboard-teacher text-white"></i>
+                        <!-- Ringkasan data per menu -->
+                        <?php
+                        include "db.php";
+                        $db = new db;
+                        $ringkasan = $db->get_dashboard();
+                        ?>
+
+                        <div class="row mt-4">
+
+                            <div class="col-xl-3 col-sm-6 mb-4">
+                                <div class="card border-0 shadow h-100" id="card_mhs">
+                                    <div class="card-body d-flex align-items-center">
+                                        <div class="icon-circle bg-primary mr-3">
+                                            <i class="fas fa-user-graduate text-white"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">
+                                                Mahasiswa</div>
+                                            <div class="h4 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $ringkasan['total_mhs']; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">Dosen</div>
-                                <div class="h4 mb-0 font-weight-bold text-gray-800"><?php echo $ringkasan['total_dosen']; ?></div>
+
+                            <div class="col-xl-3 col-sm-6 mb-4">
+                                <div class="card border-0 shadow h-100" id="card_dosen">
+                                    <div class="card-body d-flex align-items-center">
+                                        <div class="icon-circle bg-success mr-3">
+                                            <i class="fas fa-chalkboard-teacher text-white"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">
+                                                Dosen</div>
+                                            <div class="h4 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $ringkasan['total_dosen']; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="col-xl-3 col-sm-6 mb-4">
+                                <div class="card border-0 shadow h-100" id="card_jadwal">
+                                    <div class="card-body d-flex align-items-center">
+                                        <div class="icon-circle bg-warning mr-3">
+                                            <i class="fas fa-calendar-alt text-white"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">
+                                                Jadwal</div>
+                                            <div class="h4 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $ringkasan['total_jadwal']; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6 mb-4">
+                                <div class="card border-0 shadow h-100" id="card_krs">
+                                    <div class="card-body d-flex align-items-center">
+                                        <div class="icon-circle bg-info mr-3">
+                                            <i class="fas fa-file-signature text-white"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">KRS
+                                            </div>
+                                            <div class="h4 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $ringkasan['total_krs']; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
+
                     </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-4">
-                    <div class="card border-0 shadow h-100" id="card_jadwal">
-                        <div class="card-body d-flex align-items-center">
-                            <div class="icon-circle bg-warning mr-3">
-                                <i class="fas fa-calendar-alt text-white"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">Jadwal</div>
-                                <div class="h4 mb-0 font-weight-bold text-gray-800"><?php echo $ringkasan['total_jadwal']; ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-sm-6 mb-4">
-                    <div class="card border-0 shadow h-100" id="card_krs">
-                        <div class="card-body d-flex align-items-center">
-                            <div class="icon-circle bg-info mr-3">
-                                <i class="fas fa-file-signature text-white"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs font-weight-bold text-uppercase text-gray-500 mb-1">KRS</div>
-                                <div class="h4 mb-0 font-weight-bold text-gray-800"><?php echo $ringkasan['total_krs']; ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -646,9 +662,9 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
     <!-- Custom scripts for all pages-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.4/js/sb-admin-2.min.js"></script>
 
-    
 
-   
+
+
 
 </body>
 
