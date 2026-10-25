@@ -1,3 +1,7 @@
+<?php
+$login_url = '../login.php';
+require_once "../auth.php";
+?>
 <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -29,7 +33,7 @@
                                         <?php
                                         while ($m=$mhs->fetch_array()) {
                                         ?>
-                                        <option value="<?php echo $m['nim']; ?>"><?php echo $m['nama']." (".$m['nim'].")"; ?></option>
+                                        <option value="<?php echo htmlspecialchars($m['nim']); ?>"><?php echo htmlspecialchars($m['nama']." (".$m['nim'].")"); ?></option>
                                         <?php
                                         }
                                         ?>
@@ -43,7 +47,7 @@
                                         <?php
                                         while ($j=$jadwal->fetch_array()) {
                                         ?>
-                                        <option value="<?php echo $j['id']; ?>"><?php echo $j['nama_matkul']." - ".$j['nama_dosen']." - ".$j['waktu']." - ".$j['ruang']; ?></option>
+                                        <option value="<?php echo htmlspecialchars($j['id']); ?>"><?php echo htmlspecialchars($j['nama_matkul']." - ".$j['nama_dosen']." - ".$j['waktu']." - ".$j['ruang']); ?></option>
                                         <?php
                                         }
                                         ?>
@@ -57,7 +61,7 @@
                                         <?php
                                         while ($s=$semester->fetch_array()) {
                                         ?>
-                                        <option value="<?php echo $s['kd_semester']; ?>"><?php echo $s['semester']; ?></option>
+                                        <option value="<?php echo htmlspecialchars($s['kd_semester']); ?>"><?php echo htmlspecialchars($s['semester']); ?></option>
                                         <?php
                                         }
                                         ?>

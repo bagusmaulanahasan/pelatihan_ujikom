@@ -1,3 +1,7 @@
+<?php
+$login_url = '../login.php';
+require_once "../auth.php";
+?>
 <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -55,30 +59,30 @@
                     <?php echo $no++; ?>
                 </td>
                 <td>
-                    <?php echo $result['nim']; ?>
+                    <?php echo htmlspecialchars($result['nim']); ?>
                 </td>
                 <td>
-                    <?php echo $result['nama_mhs']; ?>
+                    <?php echo htmlspecialchars($result['nama_mhs']); ?>
                 </td>
                 <td>
-                    <?php echo $result['nama_matkul']; ?>
+                    <?php echo htmlspecialchars($result['nama_matkul']); ?>
                 </td>
                 <td>
-                    <?php echo $result['nama_dosen']; ?>
+                    <?php echo htmlspecialchars($result['nama_dosen']); ?>
                 </td>
                 <td>
-                    <?php echo $result['waktu']; ?>
+                    <?php echo htmlspecialchars($result['waktu']); ?>
                 </td>
                 <td>
-                    <?php echo $result['ruang']; ?>
+                    <?php echo htmlspecialchars($result['ruang']); ?>
                 </td>
                 <td>
-                    <?php echo $result['nama_semester']; ?>
+                    <?php echo htmlspecialchars($result['nama_semester']); ?>
                 </td>
 
                 <td>
-                    <button class="btn btn-success btn-user" id="editKrs" value="<?php echo $result['id']; ?>">Edit</button>
-                    <button class="btn btn-danger btn-user" id="deleteKrs" value="<?php echo $result['id']; ?>">Delete</button>
+                    <button class="btn btn-success btn-user" id="editKrs" value="<?php echo htmlspecialchars($result['id']); ?>">Edit</button>
+                    <button class="btn btn-danger btn-user" id="deleteKrs" value="<?php echo htmlspecialchars($result['id']); ?>">Delete</button>
                 </td>
             </tr>
             <?php

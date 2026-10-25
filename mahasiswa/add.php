@@ -1,3 +1,7 @@
+<?php
+$login_url = '../login.php';
+require_once "../auth.php";
+?>
 <div class="container-fluid">
 
     <!-- Page Heading -->

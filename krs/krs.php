@@ -1,4 +1,7 @@
 <?php
+$login_url = '../login.php';
+require_once "../auth.php";
+
 include "../db.php";
 $db=new db;
 

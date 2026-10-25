@@ -1,3 +1,7 @@
+<?php
+$login_url = '../login.php';
+require_once "../auth.php";
+?>
 <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -47,18 +51,18 @@
                     <?php echo $no++; ?>
                 </td>
                 <td>
-                    <?php echo $result['nim']; ?>
+                    <?php echo htmlspecialchars($result['nim']); ?>
                 </td>
                 <td>
-                    <?php echo $result['nama']; ?>
+                    <?php echo htmlspecialchars($result['nama']); ?>
                 </td>
                 <td>
-                    <?php echo $result['alamat']; ?>
+                    <?php echo htmlspecialchars($result['alamat']); ?>
                 </td>
                
                 <td>
-                    <button class="btn btn-success btn-user" id="editMhs" value="<?php echo $result['nim']; ?>">Edit</button>
-                    <button class="btn btn-danger btn-user" id="deleteMhs" value="<?php echo $result['nim']; ?>">Delete</button>
+                    <button class="btn btn-success btn-user" id="editMhs" value="<?php echo htmlspecialchars($result['nim']); ?>">Edit</button>
+                    <button class="btn btn-danger btn-user" id="deleteMhs" value="<?php echo htmlspecialchars($result['nim']); ?>">Delete</button>
                 </td>
             </tr>
             <?php

@@ -1,6 +1,7 @@
 <?php
+require_once "auth.php";
+
 include "db.php";
-session_start();
 
 $db = new db();
 
@@ -14,7 +15,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'view') {
                 <form id="formProfile">
                     <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control" name="username" value="<?php echo $data['username']; ?>" required>
+                        <input type="text" class="form-control" name="username" value="<?php echo htmlspecialchars($data['username']); ?>" required>
                     </div>
                     <div class="form-group">
                         <label>Password Baru</label>

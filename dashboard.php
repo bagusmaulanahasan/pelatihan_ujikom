@@ -480,7 +480,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                     <!-- Topbar Text -->
                     <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <span class="text-gray-800 font-weight-bold">Selamat datang
-                            <?php echo $_SESSION['username']; ?></span>
+                            <?php echo htmlspecialchars($_SESSION['username']); ?></span>
                     </div>
 
                     <!-- Topbar Navbar -->
@@ -493,7 +493,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] != true) {
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span
-                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['username']; ?></span>
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
                                 <i class="fas fa-user-circle fa-2x text-gray-400"></i>
                             </a>
                             <!-- Dropdown - User Information -->

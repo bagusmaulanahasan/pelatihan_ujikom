@@ -1,3 +1,7 @@
+<?php
+$login_url = '../login.php';
+require_once "../auth.php";
+?>
 <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -27,7 +31,7 @@
                             $semester=$db->get_allSemester();
                             ?>
                             <form method="POST" id="formEditKrs">
-                                <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
+                                <input type="hidden" name="id" value="<?php echo htmlspecialchars($result['id']); ?>">
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Mahasiswa</label>
@@ -36,7 +40,7 @@
                                         <?php
                                         while ($m=$mhs->fetch_array()) {
                                         ?>
-                                        <option value="<?php echo $m['nim']; ?>" <?php echo ($m['nim']==$result['nim']) ? 'selected' : ''; ?>><?php echo $m['nama']." (".$m['nim'].")"; ?></option>
+                                        <option value="<?php echo htmlspecialchars($m['nim']); ?>" <?php echo ($m['nim']==$result['nim']) ? 'selected' : ''; ?>><?php echo htmlspecialchars($m['nama']." (".$m['nim'].")"); ?></option>
                                         <?php
                                         }
                                         ?>
@@ -50,7 +54,7 @@
                                         <?php
                                         while ($j=$jadwal->fetch_array()) {
                                         ?>
-                                        <option value="<?php echo $j['id']; ?>" <?php echo ($j['id']==$result['id_jadwal']) ? 'selected' : ''; ?>><?php echo $j['nama_matkul']." - ".$j['nama_dosen']." - ".$j['waktu']." - ".$j['ruang']; ?></option>
+                                        <option value="<?php echo htmlspecialchars($j['id']); ?>" <?php echo ($j['id']==$result['id_jadwal']) ? 'selected' : ''; ?>><?php echo htmlspecialchars($j['nama_matkul']." - ".$j['nama_dosen']." - ".$j['waktu']." - ".$j['ruang']); ?></option>
                                         <?php
                                         }
                                         ?>
@@ -64,7 +68,7 @@
                                         <?php
                                         while ($s=$semester->fetch_array()) {
                                         ?>
-                                        <option value="<?php echo $s['kd_semester']; ?>" <?php echo ($s['kd_semester']==$result['kd_semester']) ? 'selected' : ''; ?>><?php echo $s['semester']; ?></option>
+                                        <option value="<?php echo htmlspecialchars($s['kd_semester']); ?>" <?php echo ($s['kd_semester']==$result['kd_semester']) ? 'selected' : ''; ?>><?php echo htmlspecialchars($s['semester']); ?></option>
                                         <?php
                                         }
                                         ?>

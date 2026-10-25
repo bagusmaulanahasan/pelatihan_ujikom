@@ -1,3 +1,7 @@
+<?php
+$login_url = '../login.php';
+require_once "../auth.php";
+?>
 <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -26,7 +30,7 @@
                             $matkul=$db->get_allMatkul();
                             ?>
                             <form method="POST" id="formEditJadwal">
-                                <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
+                                <input type="hidden" name="id" value="<?php echo htmlspecialchars($result['id']); ?>">
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Dosen</label>
@@ -35,7 +39,7 @@
                                         <?php
                                         while ($d=$dosen->fetch_array()) {
                                         ?>
-                                        <option value="<?php echo $d['kd_dosen']; ?>" <?php echo ($d['kd_dosen']==$result['kd_dosen']) ? 'selected' : ''; ?>><?php echo $d['nama']; ?></option>
+                                        <option value="<?php echo htmlspecialchars($d['kd_dosen']); ?>" <?php echo ($d['kd_dosen']==$result['kd_dosen']) ? 'selected' : ''; ?>><?php echo htmlspecialchars($d['nama']); ?></option>
                                         <?php
                                         }
                                         ?>
@@ -49,7 +53,7 @@
                                         <?php
                                         while ($m=$matkul->fetch_array()) {
                                         ?>
-                                        <option value="<?php echo $m['kd_matkul']; ?>" <?php echo ($m['kd_matkul']==$result['kd_matkul']) ? 'selected' : ''; ?>><?php echo $m['nama']; ?></option>
+                                        <option value="<?php echo htmlspecialchars($m['kd_matkul']); ?>" <?php echo ($m['kd_matkul']==$result['kd_matkul']) ? 'selected' : ''; ?>><?php echo htmlspecialchars($m['nama']); ?></option>
                                         <?php
                                         }
                                         ?>
@@ -58,12 +62,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Waktu</label>
-                                    <input type="text" class="form-control" name="waktu" value="<?php echo $result['waktu']; ?>" required>
+                                    <input type="text" class="form-control" name="waktu" value="<?php echo htmlspecialchars($result['waktu']); ?>" required>
 
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Ruang</label>
-                                    <input type="text" class="form-control" name="ruang" value="<?php echo $result['ruang']; ?>" required>
+                                    <input type="text" class="form-control" name="ruang" value="<?php echo htmlspecialchars($result['ruang']); ?>" required>
 
                                 </div>
 

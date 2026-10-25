@@ -1,3 +1,7 @@
+<?php
+$login_url = '../login.php';
+require_once "../auth.php";
+?>
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -28,7 +32,7 @@
                             <?php
                             while ($d = $dosen->fetch_array()) {
                                 ?>
-                                <option value="<?php echo $d['kd_dosen']; ?>"><?php echo $d['nama']; ?></option>
+                                <option value="<?php echo htmlspecialchars($d['kd_dosen']); ?>"><?php echo htmlspecialchars($d['nama']); ?></option>
                                 <?php
                             }
                             ?>
@@ -42,7 +46,7 @@
                             <?php
                             while ($m = $matkul->fetch_array()) {
                                 ?>
-                                <option value="<?php echo $m['kd_matkul']; ?>"><?php echo $m['nama']; ?></option>
+                                <option value="<?php echo htmlspecialchars($m['kd_matkul']); ?>"><?php echo htmlspecialchars($m['nama']); ?></option>
                                 <?php
                             }
                             ?>

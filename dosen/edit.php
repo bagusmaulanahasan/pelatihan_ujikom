@@ -1,3 +1,7 @@
+<?php
+$login_url = '../login.php';
+require_once "../auth.php";
+?>
 <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -23,16 +27,16 @@
                             $result=$dosen->fetch_array();
                             ?>
                             <form method="POST" id="formEditDosen">
-                                <input type="hidden" name="kd_dosen" value="<?php echo $result['kd_dosen']; ?>">
+                                <input type="hidden" name="kd_dosen" value="<?php echo htmlspecialchars($result['kd_dosen']); ?>">
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nama</label>
-                                    <input type="text" class="form-control" name="nama" value="<?php echo $result['nama']; ?>">
+                                    <input type="text" class="form-control" name="nama" value="<?php echo htmlspecialchars($result['nama']); ?>">
 
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Alamat</label>
-                                    <input type="text" class="form-control" name="alamat" value="<?php echo $result['alamat']; ?>">
+                                    <input type="text" class="form-control" name="alamat" value="<?php echo htmlspecialchars($result['alamat']); ?>">
 
                                 </div>
 
