@@ -1,3 +1,35 @@
+<?php
+session_start();
+
+if (isset($_SESSION['status']) && $_SESSION['status'] === true) {
+    header('location:dashboard.php');
+    exit;
+}
+
+include "db.php";
+$db = new db;
+$error = '';
+$username = '';
+
+if (isset($_POST['login'])) {
+    $username = trim($_POST['username']);
+    $password = $_POST['password'];
+
+    if ($username === '' || $password === '') {
+        $error = 'Username dan password wajib diisi';
+    } else {
+        $data = $db->get_user($username, $password);
+        if ($data->num_rows > 0) {
+            session_regenerate_id(true);
+            $_SESSION['username'] = $username;
+            $_SESSION['status'] = true;
+            header('location:dashboard.php');
+            exit;
+        }
+        $error = 'Username atau password salah';
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,10 +73,16 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
+                                    <?php if ($error !== ''): ?>
+                                        <div class="alert alert-danger" role="alert">
+                                            <?php echo htmlspecialchars($error); ?>
+                                        </div>
+                                    <?php endif; ?>
                                     <form class="user" method="POST">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
-                                                name="username" placeholder="username" required>
+                                                name="username" placeholder="username"
+                                                value="<?php echo htmlspecialchars($username); ?>" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
@@ -56,25 +94,6 @@
                                         
                                     </form>
 
-                                    <?php 
-                                    include "db.php";
-                                    session_start();
-                                    $db=new db;
-
-                                    if(isset($_POST['login'])){
-                                        $data=$db->get_user($_POST['username'],$_POST['password']);
-                                        if($data->num_rows>0){
-                                            $_SESSION['username']=$_POST['username'];
-                                            $_SESSION['status']=true;
-                                            header('location:dashboard.php');
-                                        }else {
-                                            echo 'username atau password salah';
-                                        }
-                                    }
-
-                                    ?>
-                                    
-                                    
                                 </div>
                             </div>
                         
