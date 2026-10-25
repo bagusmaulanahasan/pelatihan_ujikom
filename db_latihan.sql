@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_latihan`
 --
+CREATE DATABASE IF NOT EXISTS `db_latihan`;
+USE `db_latihan`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +31,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tbl_dosen` (
   `kd_dosen` int NOT NULL,
-  `nama` varchar(8) DEFAULT NULL,
+  `nama` varchar(255) DEFAULT NULL,
   `alamat` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
